@@ -36,7 +36,7 @@ jobs:
       versions: ${{ needs.params.outputs.versions }}
       refs: ${{ needs.params.outputs.refs }}
     secrets:
-      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
       dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
   configure-awskops:
@@ -50,7 +50,7 @@ jobs:
       fields_build: '[{"VERSION":"VERSION"}, {"FLAVOUR":"FLAVOUR"}, {"KOPS":"EXTRA"}, {"ARCH":"ARCH"}]'
       fields_deploy: '[{"VERSION":"VERSION"}, {"FLAVOUR":"FLAVOUR"}, {"KOPS":"EXTRA"}]'
     secrets:
-      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
       dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
   configure-awshelm:
@@ -64,7 +64,7 @@ jobs:
       fields_build: '[{"VERSION":"VERSION"}, {"FLAVOUR":"FLAVOUR"}, {"HELM":"EXTRA"}, {"ARCH":"ARCH"}]'
       fields_deploy: '[{"VERSION":"VERSION"}, {"FLAVOUR":"FLAVOUR"}, {"HELM":"EXTRA"}]'
     secrets:
-      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
       dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
 
@@ -86,7 +86,7 @@ jobs:
       stage: base
       stage_prev: ''
     secrets:
-      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
       dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
   build-tools:
@@ -105,7 +105,7 @@ jobs:
       stage: tools
       stage_prev: base
     secrets:
-      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
       dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
   build-aws:
@@ -124,7 +124,7 @@ jobs:
       stage: aws
       stage_prev: tools
     secrets:
-      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
       dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
   build-azure:
@@ -143,7 +143,7 @@ jobs:
       stage: azure
       stage_prev: tools
     secrets:
-      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
       dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
   build-infra:
@@ -162,7 +162,7 @@ jobs:
       stage: infra
       stage_prev: tools
     secrets:
-      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
       dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
   build-awsk8s:
@@ -181,7 +181,7 @@ jobs:
       stage: awsk8s
       stage_prev: aws
     secrets:
-      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
       dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
   # Note: awskops is special
@@ -202,7 +202,7 @@ jobs:
       stage_prev: awsk8s
       extra_make_var_name: KOPS
     secrets:
-      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
       dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
   # Note: awshelm is special
@@ -223,7 +223,7 @@ jobs:
       stage_prev: awsk8s
       extra_make_var_name: HELM
     secrets:
-      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
       dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
 
@@ -242,7 +242,7 @@ jobs:
       versions: ${{ needs.configure.outputs.versions }}
       stage: base
     secrets:
-      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
       dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
   manifest-tools:
@@ -257,7 +257,7 @@ jobs:
       versions: ${{ needs.configure.outputs.versions }}
       stage: tools
     secrets:
-      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
       dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
   manifest-infra:
@@ -272,7 +272,7 @@ jobs:
       versions: ${{ needs.configure.outputs.versions }}
       stage: infra
     secrets:
-      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
       dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
   manifest-azure:
@@ -287,7 +287,7 @@ jobs:
       versions: ${{ needs.configure.outputs.versions }}
       stage: azure
     secrets:
-      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
       dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
   manifest-aws:
@@ -302,7 +302,7 @@ jobs:
       versions: ${{ needs.configure.outputs.versions }}
       stage: aws
     secrets:
-      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
       dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
   manifest-awsk8s:
@@ -317,7 +317,7 @@ jobs:
       versions: ${{ needs.configure.outputs.versions }}
       stage: awsk8s
     secrets:
-      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
       dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
   # Note: awskops is special
@@ -333,7 +333,7 @@ jobs:
       versions: ${{ needs.configure-awskops.outputs.versions }}
       stage: awskops
     secrets:
-      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
       dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
   # Note: awshelm is special
@@ -349,5 +349,5 @@ jobs:
       versions: ${{ needs.configure-awshelm.outputs.versions }}
       stage: awshelm
     secrets:
-      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
       dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
